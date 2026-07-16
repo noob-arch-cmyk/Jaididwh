@@ -1,1 +1,54 @@
 
+name: runner
+on:
+  workflow_dispatch:
+    inputs:
+      is_manager:
+        type: string
+        default: 'true'
+
+permissions:
+  actions: write
+  contents: write
+
+jobs:
+  manager:
+    if: inputs.is_manager == 'true'
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+      - env:
+          GH_TOKEN: ${{ secrets.PAT || github.token }}
+        run: |
+          for i in {1..340}; do
+            gh workflow run "runner" -f is_manager=false --ref ${GITHUB_REF#refs/heads/}
+            sleep 60
+          done
+          gh workflow run "runner" -f is_manager=true --ref ${GITHUB_REF#refs/heads/}
+
+  worker:
+    if: inputs.is_manager == 'false'
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+      - run: |
+          pip install aiohttp aiofiles cryptography playwright playwright-stealth
+          playwright install chromium && playwright install-deps chromium
+          python -u main.py
+      - run: |
+          if [ ! -f result.txt ]; then exit 0; fi
+          cp result.txt /tmp/result.txt
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          BRANCH=${GITHUB_REF#refs/heads/}
+          for i in {1..30}; do
+            git fetch origin
+            git reset --hard origin/$BRANCH
+            touch results.txt
+            cat /tmp/result.txt >> results.txt
+            git add results.txt
+            git commit -m "res" || exit 0
+            if git push origin HEAD; then exit 0; fi
+            sleep $((RANDOM % 5 + 2))
+          done
+          exit 1
