@@ -10,11 +10,11 @@ from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 
-TARGET_ACCOUNT_ID = "6970935870" # Тут твой айди аккаунта.
-TARGET_DEVICE_ID = "d7c12aa755064b45" # Тут твой идентификатор устройства. Пример: 284f9e92693da75d
+TARGET_ACCOUNT_ID = "" # Тут твой айди аккаунта.
+TARGET_DEVICE_ID = "" # Тут твой идентификатор устройства. Пример: 284f9e92693da75d
 TARGET_ACCOUNT_REGISTER_TS = "0" # Оставить как есть.
 TARGET_DEVICE_REGISTER_TS = "0" # Оставить как есть.
-TARGET_ACCOUNT_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI2OTcwOTM1ODcwIiwiaWF0IjoxNzg0MjIzNDM3LCJzdWIiOiIyMDI2MDcxNiAxNzM3MTczNTIiLCJpc3MiOiJTYW5kYm94LVNlY3VyaXR5LUJhc2ljIiwiZXhwIjoxNzg1NDMzMDM3fQ.D_atz6xeJYwFdOs4t1f2bPNPAIPtUYwMwlfX2Frfc2Y" # Тут твой временный токен аккаунта. Пример: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMjY5MzA4Mjg4IiwiaWF0IjoxNzcyNzI5MjgwLCJzdWIiOiIyMDI2MDMwNSAxNjQ4MDA3NzMiLCJpc3MiOiJTYW5kYm94LVNlY3VyaXR5LUJhc2ljIiwiZXhwIjoxNzczOTM4ODgwfQ.Nfth3u6qdUV3Oo5TsmmXEY2zHI218XSx9M_E5spit9k
+TARGET_ACCOUNT_TOKEN = "" # Тут твой временный токен аккаунта. Пример: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzMjY5MzA4Mjg4IiwiaWF0IjoxNzcyNzI5MjgwLCJzdWIiOiIyMDI2MDMwNSAxNjQ4MDA3NzMiLCJpc3MiOiJTYW5kYm94LVNlY3VyaXR5LUJhc2ljIiwiZXhwIjoxNzczOTM4ODgwfQ.Nfth3u6qdUV3Oo5TsmmXEY2zHI218XSx9M_E5spit9k
 
 def enc_token(data):
     key = hashlib.md5(b"9EuDKGtoWAOWoQH1cRng-d5ihNN60hkGLaRiaZTk-6s").hexdigest()
