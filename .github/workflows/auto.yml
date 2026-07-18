@@ -21,7 +21,7 @@ jobs:
         run: |
           for i in {1..340}; do
             gh workflow run "runner" -f is_manager=false --ref ${GITHUB_REF#refs/heads/}
-            sleep 10
+            sleep 33
           done
           gh workflow run "runner" -f is_manager=true --ref ${GITHUB_REF#refs/heads/}
 
